@@ -17,22 +17,7 @@ function connect()
 
     return $conn;
 }
-function showList($sqlQuery)
-{
-    if ($result = mysqli_query(connect(), $sqlQuery)) {
 
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            echo "<tr>" .
-                "<td>" . $row["fecha"] . "</td>" .
-                "<td>" . $row["descripción"] . "</td>" .
-                "<td>" . $row["importe"] . "</td>" .
-                "<td>" . $row["categoria"] . "</td>" .
-                "</tr>";
-        }
-    }
-    mysqli_free_result($result);
-}
 
 
 

@@ -9,6 +9,7 @@
 
 <body>
     <h1>Crear nuevo gasto</h1>
+    <a href="index.php"><button>Volver</button></a>
     <form action="new.php" method="post">
         <label for="">Ingresa fecha<input type="date" name="date"></label>
         <label for="">Ingresa importe<input type="text" name="import"></label>
@@ -20,6 +21,8 @@
     <?php
 
     include("database_connect.php");
+    include("functions_list.php");
+    $conn = connect();
 
     if ($_POST) {
 
@@ -29,8 +32,9 @@
         $description = $_POST["description"];
         $category = $_POST["category"];
         $request = "INSERT INTO " . TABLE_NAME . " VALUES (?, ?, ?, ?)";
+        $result = prepareQuery($conn, $request);
 
-        if ($result = mysqli_prepare(connect(), $request)) {
+        if ($result) {
             mysqli_stmt_bind_param($result, 'ssss', $dateFormat, $description, $import, $category);
             if (mysqli_stmt_execute($result)) {
                 echo "<h4>Gasto creado exitosamente</h4>";
@@ -45,7 +49,7 @@
     }
 
 
-    mysqli_close(connect());
+    mysqli_close($conn);
 
 
     ?>
